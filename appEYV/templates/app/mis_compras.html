@@ -1,0 +1,30 @@
+{% extends 'app/base.html' %}
+{% load humanize %}
+
+{% block title %}Mundo Linterna | Mis compras{% endblock %}
+
+{% block contenido %}
+<div class="container py-4">
+  <h2 class="section-title text-center">Mis compras</h2>
+
+  {% for pedido in pedidos %}
+  <div class="card mb-3 shadow-sm">
+    <div class="card-header d-flex justify-content-between flex-wrap">
+      <span><strong>Pedido #{{ pedido.pk }}</strong> &middot; {{ pedido.creado|date:"d/m/Y H:i" }}</span>
+      <span class="fw-bold">Total: ${{ pedido.total|intcomma }}</span>
+    </div>
+    <ul class="list-group list-group-flush">
+      {% for item in pedido.items.all %}
+      <li class="list-group-item d-flex justify-content-between">
+        <span>{{ item.cantidad }} x {{ item.nombre }}</span>
+        <span>${{ item.subtotal|intcomma }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% empty %}
+  <p class="text-center text-muted">Aún no has realizado compras.</p>
+  <p class="text-center"><a href="{% url 'product_list' %}" class="btn btn-custom">Ir a la tienda</a></p>
+  {% endfor %}
+</div>
+{% endblock %}

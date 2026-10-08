@@ -1,0 +1,68 @@
+{% extends 'app/base.html' %}
+{% load static humanize %}
+
+{% block title %}Mundo Linterna | Productos{% endblock %}
+
+{% block contenido %}
+<div class="container py-4">
+  <h2 class="section-title text-center">Te recomendamos</h2>
+
+  <!-- Filtros por tipo -->
+  <div class="filtroProductos d-flex flex-wrap justify-content-center gap-2 mb-4">
+    <a href="{% url 'product_list' %}{% if q %}?q={{ q|urlencode }}{% endif %}"
+      class="btn btn-secondary {% if not tipo %}active{% endif %}">Todos</a>
+    {% for valor, nombre in tipos %}
+    <a href="{% url 'product_list' %}?tipo={{ valor }}{% if q %}&q={{ q|urlencode }}{% endif %}"
+      class="btn btn-secondary {% if tipo == valor %}active{% endif %}">{{ nombre }}</a>
+    {% endfor %}
+  </div>
+
+  {% if q %}
+  <p class="text-center text-muted">
+    Resultados para «{{ q }}» ({{ page_obj.paginator.count }}).
+    <a href="{% url 'product_list' %}{% if tipo %}?tipo={{ tipo }}{% endif %}">Limpiar búsqueda</a>
+  </p>
+  {% endif %}
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+    {% for producto in page_obj %}
+    <div class="col">
+      <div class="card h-100 shadow-sm product-card">
+        <div class="text-center p-3">
+          <img src="{{ producto.imagen_url }}" class="card-img-top img-fluid product-img"
+            alt="{{ producto.nombre_prod }}" loading="lazy"
+            onerror="this.onerror=null;this.src='{% static 'app/img/sin_imagen.svg' %}';">
+        </div>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title text-center product-title">{{ producto.nombre_prod }}</h5>
+          <p class="card-text text-center price">${{ producto.Precio|intcomma }}</p>
+          <div class="mt-auto text-center">
+            <button type="button" class="btn btn-custom btn-sm add-to-cart" data-id="{{ producto.pk }}">
+              <i class="bi bi-cart-plus"></i> Agregar al carrito
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-center w-100">No hay productos disponibles.</p>
+    {% endfor %}
+  </div>
+
+  {% if page_obj.paginator.num_pages > 1 %}
+  <nav class="d-flex justify-content-center flex-wrap gap-2 my-5" aria-label="Paginación">
+    {% if page_obj.has_previous %}
+    <a href="?{% if querystring %}{{ querystring }}&{% endif %}page=1" class="btn btn-primary">&laquo; Primera</a>
+    <a href="?{% if querystring %}{{ querystring }}&{% endif %}page={{ page_obj.previous_page_number }}" class="btn btn-primary">Anterior</a>
+    {% endif %}
+
+    <span class="btn btn-secondary disabled">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+    <a href="?{% if querystring %}{{ querystring }}&{% endif %}page={{ page_obj.next_page_number }}" class="btn btn-primary">Siguiente</a>
+    <a href="?{% if querystring %}{{ querystring }}&{% endif %}page={{ page_obj.paginator.num_pages }}" class="btn btn-primary">Última &raquo;</a>
+    {% endif %}
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}

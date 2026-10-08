@@ -1,0 +1,27 @@
+{% extends 'app/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Mundo Linterna | Modificar producto{% endblock %}
+
+{% block contenido %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h2>Modifica el producto {{ producto.ID_prod }}</h2>
+          <hr>
+          <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="d-flex justify-content-center gap-2">
+              <a href="{% url 'listar-productos' %}" class="btn btn-secondary">Cancelar</a>
+              <input type="submit" value="Guardar" class="btn btn-primary">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

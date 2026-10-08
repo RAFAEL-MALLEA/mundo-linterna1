@@ -1,0 +1,105 @@
+/* ===== General ===== */
+:root {
+    --color-primario: #4343a1;
+    --color-primario-hover: #1a05bb;
+}
+
+/* ===== Navbar ===== */
+.navbar-custom {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 32%, rgba(67, 67, 161, 1) 68%, rgba(26, 5, 187, 1) 100%);
+    padding: 10px 20px;
+}
+
+.navbar-custom .buscador {
+    max-width: 480px;
+}
+
+/* ===== Botones ===== */
+.btn-custom {
+    background-color: var(--color-primario) !important;
+    border-color: var(--color-primario) !important;
+    color: #fff !important;
+    border-radius: 5px;
+}
+
+.btn-custom:hover {
+    background-color: var(--color-primario-hover) !important;
+    border-color: var(--color-primario-hover) !important;
+}
+
+.filtroProductos .btn.active {
+    background-color: var(--color-primario);
+    border-color: var(--color-primario);
+}
+
+/* ===== Productos ===== */
+.section-title {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.product-card {
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12) !important;
+}
+
+.product-img {
+    height: 200px;
+    width: 100%;
+    object-fit: contain;
+    background-color: #f8f9fa;
+}
+
+.product-title {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.price {
+    font-size: 1.4rem;
+    color: #000;
+    font-weight: 700;
+}
+
+.thumb-sm {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+/* ===== Carrito lateral ===== */
+#cart-sidebar {
+    --bs-offcanvas-width: 460px;
+    max-width: 100vw;
+}
+
+#cart-items {
+    overflow-y: auto;
+}
+
+/* ===== Pago ===== */
+.payment-section {
+    max-width: 560px;
+    width: 100%;
+}
+
+/* ===== Footer ===== */
+.footer-custom {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 32%, rgba(67, 67, 161, 1) 68%, rgba(26, 5, 187, 1) 100%);
+    color: #fff;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 576px) {
+    .footer-custom {
+        font-size: 0.9rem;
+    }
+}

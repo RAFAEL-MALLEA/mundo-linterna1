@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+{% load humanize %}
+
+{% block title %}Mundo Linterna | Pago{% endblock %}
+
+{% block contenido %}
+<div class="container py-5">
+  <div class="payment-section mx-auto p-4 border rounded bg-white shadow-sm">
+    <h1 class="h3 text-center mb-4">Resumen de tu compra</h1>
+
+    <ul class="list-group mb-3">
+      {% for item in items %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-2">
+          <img src="{{ item.producto.imagen_url }}" alt="" class="thumb-sm">
+          <span>{{ item.producto.nombre_prod }}<br>
+            <small class="text-muted">{{ item.cantidad }} x ${{ item.precio|intcomma }}</small></span>
+        </div>
+        <span class="fw-bold">${{ item.subtotal|intcomma }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <strong>Total a pagar</strong>
+      <span class="price">${{ total|intcomma }}</span>
+    </div>
+
+    <form action="{% url 'iniciar_pago_transbank' %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger btn-lg w-100">
+        <i class="bi bi-credit-card"></i> Pagar con Webpay
+      </button>
+    </form>
+    <p class="text-muted small text-center mt-3 mb-0">
+      Serás redirigido al sitio seguro de Transbank. Nunca solicitamos los datos de tu tarjeta en este sitio.
+    </p>
+    <a href="{% url 'product_list' %}" class="d-block text-center mt-3">Seguir comprando</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,6 @@
+Django>=4.2,<5.3
+Pillow>=10.0
+django-crispy-forms>=2.1
+crispy-bootstrap5>=2024.2
+transbank-sdk>=4.0,<6.0
+DJANGO_SECRET_KEY=bqkzf413g(4rwy*a%h^(*)$7twcb%#7jl=oo9t+1342%naw40x

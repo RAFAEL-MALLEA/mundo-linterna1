@@ -1,0 +1,17 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Redirigiendo a Webpay...{% endblock %}
+
+{% block contenido %}
+<div class="container py-5 text-center">
+  <p class="lead">Redirigiendo a Webpay, un momento por favor...</p>
+  <form id="webpay-form" action="{{ url }}" method="post">
+    <input type="hidden" name="token_ws" value="{{ token }}">
+    <noscript><button type="submit" class="btn btn-danger">Continuar a Webpay</button></noscript>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>document.getElementById('webpay-form').submit();</script>
+{% endblock %}
